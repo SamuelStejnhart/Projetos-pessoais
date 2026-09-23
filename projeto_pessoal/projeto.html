@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora Financeira</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #071a12, #0d3022);
+            color: #fff;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+
+            padding: 25px;
+
+            backdrop-filter: blur(15px);
+
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            color: #5cff9d;
+        }
+
+        .subtitle {
+            color: #b6c8bf;
+            margin-bottom: 25px;
+        }
+
+        /* DISPLAY */
+
+        .display {
+            background: #06120d;
+            border-radius: 15px;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            text-align: right;
+        }
+
+        .expression {
+            color: #8ca59a;
+            font-size: 15px;
+
+            min-height: 20px;
+        }
+
+        .result {
+            font-size: 38px;
+            font-weight: bold;
+
+            margin-top: 5px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* BOTÕES */
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+
+            padding: 18px;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            color: white;
+
+            background: #19382b;
+
+            transition: 0.15s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: #24523e;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .operator {
+            background: #176c43;
+        }
+
+        .equals {
+            background: #35c477;
+            color: #06120d;
+            font-weight: bold;
+        }
+
+        .clear {
+            background: #9b3d3d;
+        }
+
+        /* FINANCEIRO */
+
+        .finance-section {
+            margin-top: 25px;
+        }
+
+        .finance-section h2 {
+            margin-bottom: 15px;
+            color: #5cff9d;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #b6c8bf;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            border: 1px solid #315b49;
+
+            background: #0b2118;
+
+            color: white;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5cff9d;
+        }
+
+        .calculate-btn {
+            width: 100%;
+
+            background: #35c477;
+
+            color: #06120d;
+
+            font-weight: bold;
+
+            margin-top: 5px;
+        }
+
+        .financial-result {
+            margin-top: 18px;
+
+            background: #06120d;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            line-height: 1.7;
+        }
+
+        .financial-result strong {
+            color: #5cff9d;
+        }
+
+        /* HISTÓRICO */
+
+        .history {
+            margin-top: 25px;
+        }
+
+        .history h2 {
+            color: #5cff9d;
+            margin-bottom: 12px;
+        }
+
+        .history-list {
+            max-height: 250px;
+
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: #0b2118;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-bottom: 8px;
+
+            color: #c5d8ce;
+        }
+
+        .empty {
+            color: #71857b;
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 800px) {
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 15px;
+            }
+
+            .result {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- CALCULADORA -->
+    <div class="card">
+
+        <h1>Calculadora</h1>
+
+        <p class="subtitle">
+            Faça cálculos de forma rápida e inteligente.
+        </p>
+
+        <div class="display">
+
+            <div id="expression" class="expression">
+                0
+            </div>
+
+            <div id="result" class="result">
+                0
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="clear" onclick="clearCalculator()">C</button>
+
+            <button onclick="deleteLast()">⌫</button>
+
+            <button onclick="percentage()">%</button>
+
+            <button class="operator" onclick="chooseOperator('/')">÷</button>
+
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+
+            <button class="operator" onclick="chooseOperator('*')">×</button>
+
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+
+            <button class="operator" onclick="chooseOperator('-')">−</button>
+
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+
+            <button class="operator" onclick="chooseOperator('+')">+</button>
+
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendDecimal()">.</button>
+
+            <button onclick="square()">x²</button>
+
+            <button class="equals" onclick="calculate()">=</button>
+
+        </div>
+
+
+        <!-- HISTÓRICO -->
+
+        <div class="history">
+
+            <h2>Histórico</h2>
+
+            <div id="historyList" class="history-list">
+
+                <p class="empty">
+                    Nenhum cálculo realizado.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FERRAMENTAS FINANCEIRAS -->
+
+    <div class="card">
+
+        <h1>Planejamento</h1>
+
+        <p class="subtitle">
+            Transforme números em decisões melhores.
+        </p>
+
+
+        <!-- JUROS COMPOSTOS -->
+
+        <div class="finance-section">
+
+            <h2>Juros compostos</h2>
+
+            <div class="form-group">
+
+                <label>Valor inicial</label>
+
+                <input
+                    type="number"
+                    id="initialValue"
+                    placeholder="Ex.: 1000"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Aporte mensal</label>
+
+                <input
+                    type="number"
+                    id="monthlyContribution"
+                    placeholder="Ex.: 200"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Taxa mensal (%)</label>
+
+                <input
+                    type="number"
+                    id="interestRate"
+                    step="0.01"
+                    placeholder="Ex.: 1"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Período (meses)</label>
+
+                <input
+                    type="number"
+                    id="months"
+                    placeholder="Ex.: 24"
+                >
+
+            </div>
+
+            <button
+                class="calculate-btn"
+                onclick="calculateCompoundInterest()"
+            >
+                Calcular crescimento
+            </button>
+
+            <div
+                id="compoundResult"
+                class="financial-result"
+            >
+                Preencha os campos para calcular.
+            </div>
+
+        </div>
+
+
+        <!-- META -->
+
+        <div class="finance-section">
+
+            <h2>Meta de economia</h2>
+
+            <div class="form-group">
+
+                <label>Quanto você quer juntar?</label>
+
+                <input
+                    type="number"
+                    id="goalValue"
+                    placeholder="Ex.: 10000"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Quanto já possui?</label>
+
+                <input
+                    type="number"
+                    id="currentValue"
+                    placeholder="Ex.: 1500"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Quanto consegue economizar por mês?</label>
+
+                <input
+                    type="number"
+                    id="savingPerMonth"
+                    placeholder="Ex.: 500"
+                >
+
+            </div>
+
+            <button
+                class="calculate-btn"
+                onclick="calculateGoal()"
+            >
+                Calcular meta
+            </button>
+
+            <div
+                id="goalResult"
+                class="financial-result"
+            >
+                Informe os valores para descobrir quanto tempo falta.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+    =====================================================
+    ESTADO DA CALCULADORA
+    =====================================================
+    */
+
+    let currentValue = "";
+    let previousValue = "";
+    let currentOperator = null;
+
+    let history = [];
+
+
+    /*
+    =====================================================
+    FORMATAÇÃO MONETÁRIA
+    =====================================================
+    */
+
+    function formatMoney(value) {
+
+        return new Intl.NumberFormat(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        ).format(value);
+
+    }
+
+
+    /*
+    =====================================================
+    ATUALIZAR DISPLAY
+    =====================================================
+    */
+
+    function updateDisplay() {
+
+        document.getElementById("result").textContent =
+            currentValue || "0";
+
+        if (previousValue && currentOperator) {
+
+            document.getElementById("expression").textContent =
+                `${previousValue} ${getOperatorSymbol(currentOperator)}`;
+
+        } else {
+
+            document.getElementById("expression").textContent =
+                "0";
+
+        }
+
+    }
+
+
+    /*
+    =====================================================
+    SÍMBOLOS DOS OPERADORES
+    =====================================================
+    */
+
+    function getOperatorSymbol(operator) {
+
+        const symbols = {
+
+            "+": "+",
+            "-": "−",
+            "*": "×",
+            "/": "÷"
+
+        };
+
+        return symbols[operator] || operator;
+
+    }
+
+
+    /*
+    =====================================================
+    ADICIONAR NÚMERO
+    =====================================================
+    */
+
+    function appendNumber(number) {
+
+        if (currentValue === "0") {
+
+            currentValue = number;
+
+        } else {
+
+            currentValue += number;
+
+        }
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    ADICIONAR DECIMAL
+    =====================================================
+    */
+
+    function appendDecimal() {
+
+        if (!currentValue.includes(".")) {
+
+            currentValue +=
+                currentValue === ""
+                    ? "0."
+                    : ".";
+
+        }
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    ESCOLHER OPERADOR
+    =====================================================
+    */
+
+    function chooseOperator(operator) {
+
+        if (currentValue === "") return;
+
+        if (previousValue !== "") {
+
+            calculate();
+
+        }
+
+        previousValue = currentValue;
+
+        currentValue = "";
+
+        currentOperator = operator;
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    CALCULAR
+    =====================================================
+    */
+
+    function calculate() {
+
+        if (
+            previousValue === "" ||
+            currentValue === "" ||
+            !currentOperator
+        ) {
+            return;
+        }
+
+        const a = parseFloat(previousValue);
+        const b = parseFloat(currentValue);
+
+        let result;
+
+        switch (currentOperator) {
+
+            case "+":
+                result = a + b;
+                break;
+
+            case "-":
+                result = a - b;
+                break;
+
+            case "*":
+                result = a * b;
+                break;
+
+            case "/":
+
+                if (b === 0) {
+
+                    alert("Não é possível dividir por zero.");
+                    return;
+
+                }
+
+                result = a / b;
+
+                break;
+
+        }
+
+        addHistory(
+            `${a} ${getOperatorSymbol(currentOperator)} ${b} = ${result}`
+        );
+
+        currentValue = String(
+            Number(result.toFixed(10))
+        );
+
+        previousValue = "";
+
+        currentOperator = null;
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    PORCENTAGEM
+    =====================================================
+    */
+
+    function percentage() {
+
+        if (currentValue === "") return;
+
+        const value =
+            parseFloat(currentValue);
+
+        currentValue =
+            String(value / 100);
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    QUADRADO
+    =====================================================
+    */
+
+    function square() {
+
+        if (currentValue === "") return;
+
+        const value =
+            parseFloat(currentValue);
+
+        const result =
+            value * value;
+
+        addHistory(
+            `${value}² = ${result}`
+        );
+
+        currentValue =
+            String(result);
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    APAGAR
+    =====================================================
+    */
+
+    function deleteLast() {
+
+        currentValue =
+            currentValue.slice(0, -1);
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    LIMPAR
+    =====================================================
+    */
+
+    function clearCalculator() {
+
+        currentValue = "";
+        previousValue = "";
+        currentOperator = null;
+
+        updateDisplay();
+
+    }
+
+
+    /*
+    =====================================================
+    HISTÓRICO
+    =====================================================
+    */
+
+    function addHistory(calculation) {
+
+        history.unshift(calculation);
+
+        if (history.length > 10) {
+
+            history.pop();
+
+        }
+
+        renderHistory();
+
+    }
+
+
+    function renderHistory() {
+
+        const container =
+            document.getElementById("historyList");
+
+        if (history.length === 0) {
+
+            container.innerHTML =
+                `<p class="empty">
+                    Nenhum cálculo realizado.
+                 </p>`;
+
+            return;
+
+        }
+
+        container.innerHTML =
+            history.map(
+                item =>
+                    `<div class="history-item">
+                        ${item}
+                    </div>`
+            ).join("");
+
+    }
+
+
+    /*
+    =====================================================
+    JUROS COMPOSTOS
+    =====================================================
+    
+    Fórmula:
+
+    M = P(1+i)^n + PMT[((1+i)^n - 1)/i]
+
+    P   = valor inicial
+    i   = taxa
+    n   = número de meses
+    PMT = aporte mensal
+    */
+
+    function calculateCompoundInterest() {
+
+        const principal =
+            parseFloat(
+                document.getElementById("initialValue").value
+            ) || 0;
+
+        const monthly =
+            parseFloat(
+                document.getElementById("monthlyContribution").value
+            ) || 0;
+
+        const rate =
+            parseFloat(
+                document.getElementById("interestRate").value
+            ) / 100 || 0;
+
+        const months =
+            parseInt(
+                document.getElementById("months").value
+            ) || 0;
+
+
+        if (months <= 0) {
+
+            showCompoundError(
+                "Informe um período válido."
+            );
+
+            return;
+
+        }
+
+
+        let futureValue;
+
+        /*
+        Se a taxa for zero,
+        não podemos dividir por i.
+        */
+
+        if (rate === 0) {
+
+            futureValue =
+                principal +
+                monthly * months;
+
+        } else {
+
+            const compound =
+                Math.pow(
+                    1 + rate,
+                    months
+                );
+
+            futureValue =
+                principal * compound
+                +
+                monthly *
+                ((compound - 1) / rate);
+
+        }
+
+
+        const totalInvested =
+            principal +
+            monthly * months;
+
+        const interest =
+            futureValue -
+            totalInvested;
+
+
+        document.getElementById(
+            "compoundResult"
+        ).innerHTML = `
+
+            Valor final:
+            <strong>${formatMoney(futureValue)}</strong>
+            <br>
+
+            Total colocado:
+            <strong>${formatMoney(totalInvested)}</strong>
+            <br>
+
+            Rendimentos:
+            <strong>${formatMoney(interest)}</strong>
+
+        `;
+
+    }
+
+
+    function showCompoundError(message) {
+
+        document.getElementById(
+            "compoundResult"
+        ).innerHTML =
+            `<strong>${message}</strong>`;
+
+    }
+
+
+    /*
+    =====================================================
+    CÁLCULO DA META
+    =====================================================
+    */
+
+    function calculateGoal() {
+
+        const goal =
+            parseFloat(
+                document.getElementById("goalValue").value
+            ) || 0;
+
+        const current =
+            parseFloat(
+                document.getElementById("currentValue").value
+            ) || 0;
+
+        const saving =
+            parseFloat(
+                document.getElementById("savingPerMonth").value
+            ) || 0;
+
+
+        if (goal <= 0) {
+
+            showGoalError(
+                "Informe uma meta válida."
+            );
+
+            return;
+
+        }
+
+
+        if (current >= goal) {
+
+            document.getElementById(
+                "goalResult"
+            ).innerHTML = `
+
+                🎉 Você já atingiu sua meta!
+
+                <br>
+
+                Valor acumulado:
+                <strong>${formatMoney(current)}</strong>
+
+            `;
+
+            return;
+
+        }
+
+
+        if (saving <= 0) {
+
+            showGoalError(
+                "Informe quanto você consegue economizar por mês."
+            );
+
+            return;
+
+        }
+
+
+        const remaining =
+            goal - current;
+
+        const months =
+            Math.ceil(
+                remaining / saving
+            );
+
+        const years =
+            Math.floor(months / 12);
+
+        const remainingMonths =
+            months % 12;
+
+
+        let timeText = "";
+
+        if (years > 0) {
+
+            timeText +=
+                `${years} ano(s) `;
+
+        }
+
+        if (remainingMonths > 0) {
+
+            timeText +=
+                `${remainingMonths} mês(es)`;
+
+        }
+
+
+        document.getElementById(
+            "goalResult"
+        ).innerHTML = `
+
+            Faltam:
+            <strong>${formatMoney(remaining)}</strong>
+
+            <br>
+
+            Tempo estimado:
+            <strong>${timeText}</strong>
+
+            <br>
+
+            Economia mensal:
+            <strong>${formatMoney(saving)}</strong>
+
+        `;
+
+    }
+
+
+    function showGoalError(message) {
+
+        document.getElementById(
+            "goalResult"
+        ).innerHTML =
+            `<strong>${message}</strong>`;
+
+    }
+
+
+    /*
+    =====================================================
+    TECLADO DO COMPUTADOR
+    =====================================================
+    */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            const key = event.key;
+
+            if (!isNaN(key)) {
+
+                appendNumber(key);
+
+            }
+
+            else if (key === ".") {
+
+                appendDecimal();
+
+            }
+
+            else if (
+                ["+", "-", "*", "/"].includes(key)
+            ) {
+
+                chooseOperator(key);
+
+            }
+
+            else if (
+                key === "Enter" ||
+                key === "="
+            ) {
+
+                calculate();
+
+            }
+
+            else if (key === "Backspace") {
+
+                deleteLast();
+
+            }
+
+            else if (key === "Escape") {
+
+                clearCalculator();
+
+            }
+
+        }
+    );
+
+
+    /*
+    =====================================================
+    INICIALIZAÇÃO
+    =====================================================
+    */
+
+    updateDisplay();
+
+</script>
+
+</body>
+</html>

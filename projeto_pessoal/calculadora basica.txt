@@ -1,0 +1,46 @@
+
+
+<input type="number" id="num1" placeholder="Primeiro número">
+
+    <select id="operacao">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+
+    <input type="number" id="num2" placeholder="Segundo número">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <h2 id="resultado"></h2>
+
+    <script>
+        function calcular() {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let operacao = document.getElementById("operacao").value;
+            let num2 = parseFloat(document.getElementById("num2").value);
+
+            let resultado;
+
+            if (operacao === "+") {
+                resultado = num1 + num2;
+            } else if (operacao === "-") {
+                resultado = num1 - num2;
+            } else if (operacao === "*") {
+                resultado = num1 * num2;
+            } else if (operacao === "/") {
+                if (num2 === 0) {
+                    resultado = "Não é possível dividir por zero";
+                } else {
+                    resultado = num1 / num2;
+                }
+            } else {
+                resultado = "Operação inválida";
+            }
+
+            document.getElementById("resultado").textContent =
+                "Resultado: " + resultado;
+        }
+    </script>
+ 
