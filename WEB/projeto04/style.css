@@ -1,0 +1,189 @@
+@font-face {
+    font-family: "CollegiateFLF.ttf";
+    src: url("fontes/CollegiateFLF.ttf");
+}
+
+
+
+body {
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+
+}
+
+
+
+#menu {
+    background-color: rgb(241, 33, 33);
+    width: 350px;
+    height: 1000px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    box-shadow: 10px 10px 5px 5px rgb(122, 1, 11) inset;
+    margin-top: -30px;
+}
+
+a {
+    text-emphasis: none;
+    text-decoration: underline;
+    color: white;
+}
+
+.logo {
+    border-radius: 50%;
+    border: 5px double white;
+    margin-top: 70px;
+    box-shadow: 10px 10px 5px 12px rgb(122, 1, 11) inset;
+}
+
+
+h1 {
+    font-family: "Electrolize", sans-serif;
+    text-shadow: 10px 10px 1.5rem black;
+}
+
+
+h2 {
+    font-family: "CollegiateFLF.ttf", sans-serif;
+    text-shadow: 10px 10px 1.2rem black;
+
+}
+
+
+.links1 {
+    color: black;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    box-shadow: gray;
+    transition: all 0.4s ease;
+}
+
+.links1:hover {
+    font-size: 1.6rem;
+    color: rgb(41, 1, 1);
+    background-color: white;
+    font-weight: 700;
+}
+
+header {
+    float: left;
+
+}
+
+.info01 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+
+}
+
+.info02 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0,5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+
+}
+
+
+.info03 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+.info04 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+
+.info05 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+.info06 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+.info07 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+.info08 {
+    background-color: rgb(141, 141, 141);
+    margin: 2rem 1rem 0.5rem 25rem;
+    padding: 0, 5rem;
+    border-radius: 1rem;
+    width: 300px;
+    height: 300px;
+}
+
+
+
+h3 {
+
+    text-align: center;
+
+
+
+}
+
+.caixa1 {
+display: flex;
+flex-grow: 1;
+align-items: start;
+}
+
+.caixa2 {
+display: flex;
+flex-grow: 1;
+align-items: start;
+}
+
+
+.caiza3 {
+    display: flex;
+flex-grow: 1;
+}
+
+
+#main {
+
+
+
+
+
+
+
+
+}
