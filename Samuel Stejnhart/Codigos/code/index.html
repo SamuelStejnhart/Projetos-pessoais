@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meu Portfólio</title>
+
+    <style>
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080808;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =====================================================
+           FUNDO
+        ===================================================== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #6c3cff;
+            filter: blur(180px);
+            opacity: 0.15;
+            border-radius: 50%;
+            top: -150px;
+            left: -150px;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #00d9ff;
+            filter: blur(180px);
+            opacity: 0.10;
+            border-radius: 50%;
+            bottom: -200px;
+            right: -150px;
+            z-index: -1;
+        }
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        .menu {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 65px;
+            padding: 12px 8px;
+
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+
+            border-radius: 40px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            z-index: 1000;
+        }
+
+        .menu button {
+            width: 48px;
+            height: 48px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: transparent;
+            color: #888;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition: 0.3s;
+        }
+
+        .menu button:hover,
+        .menu button.active {
+            background: #ffffff;
+            color: #000000;
+            transform: scale(1.08);
+        }
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        main {
+            width: min(1100px, 90%);
+            margin: auto;
+
+            min-height: 100vh;
+            padding-left: 60px;
+        }
+
+        .page {
+            min-height: 100vh;
+
+            display: none;
+
+            align-items: center;
+
+            padding: 80px 0;
+
+            animation: pageEnter 0.6s ease forwards;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes pageEnter {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================================
+           HOME
+        ===================================================== */
+
+        .home {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tag {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            color: #aaa;
+
+            margin-bottom: 20px;
+        }
+
+        .home h1 {
+            font-size: clamp(45px, 7vw, 85px);
+            line-height: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg,
+                    #8b5cf6,
+                    #00d9ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .home p {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 1.7;
+
+            max-width: 600px;
+
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 22px;
+
+            border-radius: 10px;
+
+            background: white;
+            color: black;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            color: white;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* =====================================================
+           FOTO / IMAGEM
+        ===================================================== */
+
+        .profile {
+            width: 330px;
+            height: 330px;
+
+            margin: auto;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(135deg, #161616, #222);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.5s;
+        }
+
+        .profile:hover {
+            transform: rotate(2deg) scale(1.03);
+        }
+
+        .profile img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+            text-align: center;
+            color: #555;
+            padding: 20px;
+        }
+
+        /* =====================================================
+           TÍTULOS
+        ===================================================== */
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        .section-title span {
+            color: #8b5cf6;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(35px, 5vw, 60px);
+            margin-top: 10px;
+        }
+
+        /* =====================================================
+           SOBRE
+        ===================================================== */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* =====================================================
+           HABILIDADES
+        ===================================================== */
+
+        .skills {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 15px;
+        }
+
+        .skill {
+            padding: 25px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            background: rgba(139, 92, 246, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .skill strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .skill span {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =====================================================
+           PROJETOS
+        ===================================================== */
+
+        .projects {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+        }
+
+        .project {
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+        }
+
+        .project-image {
+            height: 190px;
+
+            background: #151515;
+
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.5s;
+        }
+
+        .project:hover img {
+            transform: scale(1.08);
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            color: #888;
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           CONTATO
+        ===================================================== */
+
+        .contact {
+            text-align: center;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact p {
+            color: #999;
+            line-height: 1.7;
+
+            margin: 20px 0 30px;
+        }
+
+        .socials {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .social {
+            padding: 12px 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+        .social:hover {
+            background: white;
+            color: black;
+        }
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .menu {
+                left: 50%;
+                top: auto;
+                bottom: 20px;
+
+                transform: translateX(-50%);
+
+                flex-direction: row;
+
+                width: auto;
+
+                padding: 8px;
+            }
+
+            main {
+                padding-left: 0;
+                padding-bottom: 100px;
+            }
+
+            .home {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .home p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .profile {
+                width: 250px;
+                height: 250px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         MENU
+    ====================================================== -->
+
+    <nav class="menu">
+
+        <button class="nav-btn active" data-page="home">
+            🏠
+        </button>
+
+        <button class="nav-btn" data-page="about">
+            👤
+        </button>
+
+        <button class="nav-btn" data-page="skills">
+            ⚡
+        </button>
+
+        <button class="nav-btn" data-page="projects">
+            💻
+        </button>
+
+        <button class="nav-btn" data-page="contact">
+            ✉️
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main>
+
+        <!-- ================= HOME ================= -->
+
+        <section class="page active" id="home">
+
+            <div class="home">
+
+                <div>
+
+                    <span class="tag">
+                        SEU CARGO / PROFISSÃO
+                    </span>
+
+                    <h1>
+                        Olá, eu sou
+                        <span class="gradient">
+                            SEU NOME
+                        </span>
+                    </h1>
+
+                    <p>
+                        ESCREVA AQUI UMA BREVE DESCRIÇÃO SOBRE VOCÊ,
+                        SEU TRABALHO, SEUS OBJETIVOS OU O QUE VOCÊ FAZ.
+                    </p>
+
+                    <div class="buttons">
+
+                        <a href="#" class="btn" onclick="showPage('projects')">
+                            Ver projetos
+                        </a>
+
+                        <a href="#" class="btn secondary" onclick="showPage('contact')">
+                            Entrar em contato
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COLOQUE SUA FOTO AQUI -->
+
+                <div class="profile">
+
+                    <!--
+                        Troque o src pela sua imagem.
+
+                        Exemplo:
+
+                        <img src="img/foto.jpg"
+                             alt="Minha foto">
+                    -->
+
+                    <div class="profile-placeholder">
+                        COLOQUE SUA FOTO AQUI
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SOBRE ================= -->
+
+        <section class="page" id="about">
+
+            <div>
+
+                <div class="section-title">
+
+                    <span>
+                        01 — Sobre mim
+                    </span>
+
+                    <h2>
+                        Quem sou eu?
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="card">
+
+                        <h3>
+                            Sobre mim
+                        </h3>
+
+                        <p>
+                            ESCREVA AQUI SUA HISTÓRIA,
+                            EXPERIÊNCIA, FORMAÇÃO E OUTRAS
+                            INFORMAÇÕES IMPORTANTES.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>
+                            Minha experiência
+                        </h3>
+
+                        <p>
+                            ESCREVA AQUI SUAS EXPERIÊNCIAS,
+                            EMPRESAS ONDE TRABALHOU,
+                            PROJETOS REALIZADOS ETC.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>
+                            Objetivos
+                        </h3>
+
+                        <p>
+                            ESCREVA AQUI SEUS OBJETIVOS
+                            PROFISSIONAIS E O QUE VOCÊ
+                            PRETENDE ALCANÇAR.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>
+                            Formação
+                        </h3>
+
+                        <p>
+                            COLOQUE AQUI SEUS CURSOS,
+                            FACULDADE, CERTIFICAÇÕES,
+                            ESCOLA OU OUTRAS FORMAÇÕES.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HABILIDADES ================= -->
+
+        <section class="page" id="skills">
+
+            <div style="width:100%;">
+
+                <div class="section-title">
+
+                    <span>
+                        02 — Habilidades
+                    </span>
+
+                    <h2>
+                        O que eu faço
+                    </h2>
+
+                </div>
+
+
+                <div class="skills">
+
+                    <div class="skill">
+                        <strong>HTML</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                    <div class="skill">
+                        <strong>CSS</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                    <div class="skill">
+                        <strong>JavaScript</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                    <div class="skill">
+                        <strong>React</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                    <div class="skill">
+                        <strong>Python</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                    <div class="skill">
+                        <strong>Design</strong>
+                        <span>Seu nível</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROJETOS ================= -->
+
+        <section class="page" id="projects">
+
+            <div style="width:100%;">
+
+                <div class="section-title">
+
+                    <span>
+                        03 — Portfólio
+                    </span>
+
+                    <h2>
+                        Meus projetos
+                    </h2>
+
+                </div>
+
+
+                <div class="projects">
+
+
+                    <!-- PROJETO 1 -->
+
+                    <article class="project">
+
+                        <div class="project-image">
+
+                            <!-- COLOQUE A IMAGEM DO PROJETO -->
+
+                            <img src="https://via.placeholder.com/800x500" alt="Projeto 1">
+
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Nome do Projeto
+                            </h3>
+
+                            <p>
+                                DESCRIÇÃO DO PROJETO.
+                                ESCREVA AQUI O QUE VOCÊ FEZ.
+                            </p>
+
+                            <a href="#" class="project-link" target="_blank">
+                                Ver projeto →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJETO 2 -->
+
+                    <article class="project">
+
+                        <div class="project-image">
+
+                            <img src="https://via.placeholder.com/800x500" alt="Projeto 2">
+
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Outro Projeto
+                            </h3>
+
+                            <p>
+                                COLOQUE AQUI A DESCRIÇÃO
+                                DO SEGUNDO PROJETO.
+                            </p>
+
+                            <a href="#" class="project-link" target="_blank">
+                                Ver projeto →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJETO 3 -->
+
+                    <article class="project">
+
+                        <div class="project-image">
+
+                            <img src="https://via.placeholder.com/800x500" alt="Projeto 3">
+
+                        </div>
+
+                        <div class="project-info">
+
+                            <h3>
+                                Mais um projeto
+                            </h3>
+
+                            <p>
+                                COLOQUE AQUI OUTRA DESCRIÇÃO.
+                            </p>
+
+                            <a href="#" class="project-link" target="_blank">
+                                Ver projeto →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTATO ================= -->
+
+        <section class="page" id="contact">
+
+            <div class="contact">
+
+                <div class="section-title">
+
+                    <span>
+                        04 — Contato
+                    </span>
+
+                    <h2>
+                        Vamos conversar?
+                    </h2>
+
+                </div>
+
+                <p>
+                    ESCREVA AQUI UMA MENSAGEM PARA
+                    CONVIDAR AS PESSOAS A ENTRAREM
+                    EM CONTATO COM VOCÊ.
+                </p>
+
+
+                <div class="socials">
+
+                    <a href="#" class="social" target="_blank">
+                        Instagram
+                    </a>
+
+                    <a href="#" class="social" target="_blank">
+                        GitHub
+                    </a>
+
+                    <a href="#" class="social" target="_blank">
+                        LinkedIn
+                    </a>
+
+                    <a href="mailto:seuemail@email.com" class="social">
+                        E-mail
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        const buttons =
+            document.querySelectorAll(".nav-btn");
+
+        const pages =
+            document.querySelectorAll(".page");
+
+
+        function showPage(pageId) {
+
+            /*
+                Esconde todas as páginas
+            */
+
+            pages.forEach(page => {
+
+                page.classList.remove("active");
+
+            });
+
+
+            /*
+                Mostra a página escolhida
+            */
+
+            const selected =
+                document.getElementById(pageId);
+
+            selected.classList.add("active");
+
+
+            /*
+                Atualiza o botão ativo
+            */
+
+            buttons.forEach(button => {
+
+                button.classList.remove("active");
+
+                if (
+                    button.dataset.page === pageId
+                ) {
+
+                    button.classList.add("active");
+
+                }
+
+            });
+
+        }
+
+
+        /*
+            Clique nos botões do menu
+        */
+
+        buttons.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    showPage(
+                        button.dataset.page
+                    );
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+:::
+
+Como personalizar
+Você pode começar alterando estes pontos:
+
+1. Seu nome
+
+Procure:
+
+<span class="gradient">
+    SEU NOME
+</span>
+e coloque seu nome.
+
+2. Sua foto
+
+Troque:
+
+<div class="profile-placeholder">
+    COLOQUE SUA FOTO AQUI
+</div>
+por:
+
+<img src="img/minha-foto.jpg" alt="Minha foto">
+Se sua estrutura de pastas for:
+
+portfolio/
+│
+├── index.html
+│
+└── img/
+├── minha-foto.jpg
+├── projeto1.jpg
+├── projeto2.jpg
+└── projeto3.jpg
+fica fácil organizar tudo.
+
+3. Links
+
+Por exemplo:
+
+<a href="https://github.com/seuusuario" target="_blank">
+    GitHub
+</a>
+4. Projetos
+
+Para adicionar outro projeto, basta duplicar um bloco:
+
+<article class="project">
+
+    <div class="project-image">
+        <img src="img/projeto4.jpg" alt="Projeto 4">
+    </div>
+
+    <div class="project-info">
+
+        <h3>
+            Meu quarto projeto
+        </h3>
+
+        <p>
+            Descrição do projeto.
+        </p>
+
+        <a href="https://seulink.com" class="project-link" target="_blank">
+            Ver projeto →
+        </a>
+
+    </div>
+
+</article>
