@@ -16,7 +16,7 @@ body {
 #menu {
     background-color: rgb(241, 33, 33);
     width: 350px;
-    height: 1000px;
+    height: 1300px;
     color: rgb(0, 0, 0);
     text-align: center;
     box-shadow: 10px 10px 5px 5px rgb(122, 1, 11) inset;
@@ -76,76 +76,78 @@ header {
 
 .info01 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 23rem;
     padding: 0.5rem;
     border-radius: 1rem;
+
 
 }
 
 .info02 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
-    padding: 0,5rem;
+    margin: 2rem 1rem 0.5rem 5rem;
+    padding: 0, 5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
 
 }
 
 
 .info03 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: auto;
 }
 
 .info04 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
 }
 
 
 .info05 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
 }
 
 .info06 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
 }
 
 .info07 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
 }
 
 .info08 {
     background-color: rgb(141, 141, 141);
-    margin: 2rem 1rem 0.5rem 25rem;
+    margin: 2rem 1rem 0.5rem 5rem;
     padding: 0, 5rem;
     border-radius: 1rem;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
+    align-self: center;
 }
 
 
@@ -153,37 +155,43 @@ header {
 h3 {
 
     text-align: center;
-
-
+    text-shadow: 10px 10px 1.2rem black;
+    font-family: sans-serif;
 
 }
 
-.caixa1 {
-display: flex;
-flex-grow: 1;
-align-items: start;
-}
-
-.caixa2 {
-display: flex;
-flex-grow: 1;
-align-items: start;
-}
-
-
-.caiza3 {
+.box {
     display: flex;
-flex-grow: 1;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
-#main {
+
+.info02 .info03 .info04 .info05 .info06 .info07 .info08 {
+    box-shadow: 5px black;
 
 
 
+}
 
 
+footer {
+    background-color: red;
+    clear: both;
+    color: black;
+    text-align: center;
+    font-size: 1.6rem;
+}
 
+li,
+summary {
+    text-shadow: gray;
 
+}
 
+.mapa {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
